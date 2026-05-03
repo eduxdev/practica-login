@@ -30,6 +30,9 @@ control/
 ├── assets/
 │   └── css/
 │       └── estilos.css       # Estilos CSS del sistema bancario
+├── ataques/
+│   ├── brute_force.py        # Script Python de fuerza bruta
+│   └── passwords.txt         # Diccionario de contraseñas comunes
 └── README.md                 # Este archivo
 ```
 
@@ -166,7 +169,69 @@ El dinero se transfiere exitosamente de la cuenta de la víctima a la del atacan
 
 ---
 
-## 8. Cómo el Login Seguro Previene Este Ataque
+## 8. Ataque de Fuerza Bruta con Python (Windows)
+
+El login vulnerable no tiene límite de intentos, lo que permite probar miles de contraseñas automáticamente.
+
+### Requisitos
+
+1. Instalar **Python** desde [python.org](https://www.python.org/downloads/) (marcar "Add to PATH" durante la instalación)
+2. Instalar la librería `requests`:
+```
+pip install requests
+```
+
+### Archivos incluidos
+
+```
+ataques/
+├── brute_force.py    # Script de fuerza bruta
+└── passwords.txt     # Diccionario con 100 contraseñas comunes
+```
+
+### Cómo ejecutar el ataque
+
+1. Asegúrate de que **Apache** y **MySQL** estén corriendo en XAMPP.
+2. Abre una terminal (CMD o PowerShell) y navega a la carpeta del proyecto:
+```
+cd C:\xampp\htdocs\control\ataques
+```
+3. Ejecuta el script:
+```
+python brute_force.py
+```
+4. Ingresa el usuario a atacar (por defecto: `admin`) y confirma con `s`.
+
+### Uso con argumentos (opcional)
+
+```
+python brute_force.py admin passwords.txt
+```
+
+### Resultado esperado
+
+El script probará cada contraseña del diccionario contra el login vulnerable. Cuando encuentre la correcta (`789` para el usuario `admin`), mostrará:
+
+```
+[67/100] ✅ CONTRASEÑA ENCONTRADA: 789
+
+============================================================
+  🔓 Usuario:     admin
+  🔑 Contraseña:  789
+  ⏱️  Tiempo:      1.25 segundos
+  📊 Intentos:    67 de 100
+============================================================
+```
+
+### Evidencias para el laboratorio
+
+1. Captura del script ejecutándose con intentos fallidos.
+2. Captura del momento en que encuentra la contraseña.
+3. Comparar contra el login seguro (Fase 2) que bloquea después de 5 intentos.
+
+---
+
+## 9. Cómo el Login Seguro Previene Este Ataque
 
 | Vulnerabilidad | Login Vulnerable | Login Seguro |
 |---|---|---|
@@ -178,7 +243,7 @@ El dinero se transfiere exitosamente de la cuenta de la víctima a la del atacan
 
 ---
 
-## 9. Evidencias Recomendadas para el Laboratorio
+## 10. Evidencias Recomendadas para el Laboratorio
 
 1. **Login vulnerable:** Captura del formulario de login Fase 1.
 2. **Bypass con SQL Injection:** Captura entrando con `' OR 1=1#` como admin.

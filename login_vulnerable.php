@@ -75,14 +75,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Solo para fines educativos.
         </div>
 
-        <form method="POST" action="">
+        <form method="POST" action="login_vulnerable.php">
             <div class="form-group">
                 <label for="usuario"><i class="fas fa-user"></i> Usuario</label>
                 <input type="text" name="usuario" id="usuario" placeholder="Ingrese su usuario" required>
             </div>
             <div class="form-group">
                 <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
-                <input type="password" name="password" id="password" placeholder="Ingrese su contraseña" required>
+                <div class="password-wrapper">
+                    <input type="password" name="password" id="password" placeholder="Ingrese su contraseña" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword('password', this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
             </div>
             <button type="submit" class="btn-login vulnerable">
                 <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
@@ -93,5 +98,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="index.php"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
         </div>
     </div>
+    <script>
+    function togglePassword(inputId, btn) {
+        var input = document.getElementById(inputId);
+        var icon = btn.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.replace('fa-eye-slash', 'fa-eye');
+        }
+    }
+    </script>
 </body>
 </html>
